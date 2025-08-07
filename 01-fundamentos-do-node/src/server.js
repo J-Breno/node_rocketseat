@@ -7,7 +7,7 @@ const database = new Database();
 const server = http.createServer(async (req, res) => {
   const { method, url } = req;
 
-  await json(req.res);
+  await json(req, res);
 
   if (method === "GET" && url === "/users") {
     const users = database.select("users");
@@ -17,7 +17,7 @@ const server = http.createServer(async (req, res) => {
   }
 
   if (method === "POST" && url === "/users") {
-    const { name, email } = body;
+    const { name, email } = req.body;
     const user = {
       id: 1,
       name: name,
