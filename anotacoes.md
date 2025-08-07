@@ -14,3 +14,4 @@
 - Buffer transição de dados entre streams - representação de um espaço na memória do computador para enviarem e serem removidos de uma forma bem performática.
 - Req => ReadableStream
 - res => WritableStream
+- middlewares -> eles sempre recebe, o req e o res,
