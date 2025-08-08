@@ -29,3 +29,4 @@ para executar: npm run knex -- migrate:latest
 para desfazer: npm run knex -- migrate:rollback 
 npm i dotenv
 npm i zod = validação de dados
+npm i @fastify/cookie
