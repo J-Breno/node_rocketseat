@@ -46,3 +46,5 @@ npm i -D @types/supertest
 ```
 
 executar: npx  vitest
+
+Teste não pode depender de outro teste
