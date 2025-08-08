@@ -39,4 +39,6 @@ GymPass style app.
 ```
 npm i typescript @types/node tsx tsup -D
 npm i fastify
+npm i dotenv
+npm i zod
 ```
