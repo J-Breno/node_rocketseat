@@ -41,6 +41,8 @@ npm i @fastify/cookie
 
 ```
 npm i vitest -D
+npm i supertest -D
+npm i -D @types/supertest 
 ```
 
 executar: npx  vitest
