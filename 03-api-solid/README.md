@@ -46,4 +46,5 @@ npm i prisma -D | npx prisma init | npx prisma generate
 npm i @prisma/client
 docker run --name api-solid-pg -e POSTGRESQL_USERNAME=docker -e POSTGRESQL_PASSWORD=docker -e POSTGRESQL_DATABASE=apisolid -p 5432:5432 bitnami/postgresql
 npx prisma migrate dev | npx prisma studio  
+npm i bcryptjs @types/bcryptjs
 ```
