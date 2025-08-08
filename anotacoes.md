@@ -25,3 +25,5 @@ npm i knex
 npm i sqlite3
 ```
 Criar migration: npm run knex -- migrate:make create-documents
+para executar: npm run knex -- migrate:latest    
+para desfazer: npm run knex -- migrate:rollback
