@@ -24,3 +24,4 @@
 npm i knex
 npm i sqlite3
 ```
+Criar migration: npm run knex -- migrate:make create-documents
