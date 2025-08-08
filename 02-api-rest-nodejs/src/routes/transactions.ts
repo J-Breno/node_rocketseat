@@ -4,6 +4,9 @@ import { knex } from '../database.js'
 import { checkSessionIdExists } from '../middlewares/check-session-id-exists.js'
 
 export async function transactionRoutes(app: FastifyInstance) {
+  app.addHook('preHandler', async (request, reply) => {
+    console.log(`[${request.method}] ${request.url}`)
+  })
   app.get(
     '/',
     {
