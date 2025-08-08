@@ -42,4 +42,6 @@ npm i fastify
 npm i dotenv
 npm i zod
 npm i eslint @rocketseat/eslint-config -D
+npm i prisma -D | npx prisma init | npx prisma generate
+npm i @prisma/client
 ```
