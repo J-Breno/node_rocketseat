@@ -30,3 +30,17 @@ para desfazer: npm run knex -- migrate:rollback
 npm i dotenv
 npm i zod = validação de dados
 npm i @fastify/cookie
+
+## Teste automatizados
+
+- Teste unitários: unidade(uma parte) da aplicação
+- Teste integração: Comunicação entre duas ou mais unidades(função que chama função e testa tudo)
+- e2e(ponta a ponta): simulão um usuário operando em nossa aplicação (Não dependem de nenhuma tecnologia, não dependem de arquitetura)
+
+### Instalação Vitest
+
+```
+npm i vitest -D
+```
+
+executar: npx  vitest
