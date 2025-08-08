@@ -1,11 +1,11 @@
 # Node
 
-### Stateful - Stateless
+## Stateful - Stateless
 
 - Aplicação stateful vai ter sempre informação guardada em memória.
 - Aplicação Stateless não salva nada em memória, salva em banco de dados.
 
-# Stream
+## Stream
 
 - Ler pequenas partes de alguma coisa e já conseguir trabalhar com aqueles dados mesmo antes de ler o arquivo por completo.
 - Readable streams = leitura - lendo os arquivos aos poucos
@@ -15,3 +15,12 @@
 - Req => ReadableStream
 - res => WritableStream
 - middlewares -> eles sempre recebe, o req e o res,
+
+## Knex (banco de dados)
+
+### Instalação
+
+```
+npm i knex
+npm i sqlite3
+```
