@@ -48,4 +48,5 @@ docker run --name api-solid-pg -e POSTGRESQL_USERNAME=docker -e POSTGRESQL_PASSW
 npx prisma migrate dev | npx prisma studio  
 npm i bcryptjs @types/bcryptjs
 npm i vitest vite-tsconfig-paths -d
+npm i -D @vitest/ui
 ```
