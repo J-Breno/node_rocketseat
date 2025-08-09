@@ -2,7 +2,7 @@ import { expect, describe, it } from 'vitest'
 import { RegisterUseCase } from './register.js'
 import { compare } from 'bcryptjs'
 import { InMemoryUsersRepository } from '@/repositories/in-memory/in-memory-users-repository.js'
-import { UserAlreadyExistsError } from '@/errors/user-already-exists-error.js'
+import { UserAlreadyExistsError } from '@/use-case/errors/user-already-exists-error.js'
 
 describe('Register Use Case', () => {
   it('Should be able to register', async () => {
