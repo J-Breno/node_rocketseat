@@ -2,25 +2,27 @@ import { expect, describe, it, beforeEach, vi, afterEach } from 'vitest'
 import { InMemoryCheckInsRepository } from '@/repositories/in-memory/in-memory-check-ins-repository.js'
 import { CheckInUseCase } from './check-in.js'
 import { InMemoryGymsRepository } from '@/repositories/in-memory/in-memory-gyms-repository.js'
+import { MaxDistanceError } from './errors/max-distance-error.js'
 import { Decimal } from 'generated/prisma/runtime/library.js'
+import { MaxNumberOfCheckInsError } from './errors/max-number-of-check-ins-error.js'
 
 let checkInsRepository: InMemoryCheckInsRepository
 let gymsRepository: InMemoryGymsRepository
 let sut: CheckInUseCase
 
 describe('Check-in Use Case', () => {
-  beforeEach(() => {
+  beforeEach(async () => {
     checkInsRepository = new InMemoryCheckInsRepository()
     gymsRepository = new InMemoryGymsRepository()
     sut = new CheckInUseCase(checkInsRepository, gymsRepository)
 
-    gymsRepository.items.push({
+    await gymsRepository.create({
       id: 'gym-01',
       title: 'JAvascript gym',
       description: '',
       phone: '',
-      latitude: new Decimal(0),
-      longitude: new Decimal(0),
+      latitude: new Decimal(-3.7584896),
+      longitude: new Decimal(-38.649856),
     })
 
     vi.useFakeTimers()
@@ -58,7 +60,7 @@ describe('Check-in Use Case', () => {
         userLatitude: -3.7584896,
         userLongitude: -38.649856,
       }),
-    ).rejects.toBeInstanceOf(Error)
+    ).rejects.toBeInstanceOf(MaxNumberOfCheckInsError)
   })
 
   it('Should be able check in twice in different days', async () => {
@@ -81,5 +83,25 @@ describe('Check-in Use Case', () => {
     })
 
     expect(checkIn.id).toEqual(expect.any(String))
+  })
+
+  it('should not be able to check in on distant gym', async () => {
+    gymsRepository.items.push({
+      id: 'gym-02',
+      title: 'JAvascript gym',
+      description: '',
+      phone: '',
+      latitude: new Decimal(3.7609171),
+      longitude: new Decimal(-38.4714348),
+    })
+
+    await expect(() =>
+      sut.execute({
+        gymId: 'gym-02',
+        userId: 'user-01',
+        userLatitude: -3.7584896,
+        userLongitude: -38.649856,
+      }),
+    ).rejects.toBeInstanceOf(MaxDistanceError)
   })
 })
