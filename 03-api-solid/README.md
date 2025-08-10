@@ -18,8 +18,8 @@ GymPass style app.
 ## RNs (Regras de negócio)
 
 - [x] O usuário não deve poder se cadastrar com um e-mail duplicado;
-- [ ] O usuário não pode fazer 2 check-ins no mesmo dia;
-- [ ] O usuário não pode fazer check-in se não estiver perto(100m) da academia;
+- [x] O usuário não pode fazer 2 check-ins no mesmo dia;
+- [] O usuário não pode fazer check-in se não estiver perto(100m) da academia;
 - [ ] O check-in só pde ser validado até 20 minutos após criado;
 - [ ] O check-in só pode ser validado por adminstradores;
 - [ ] A academia só pode ser cadastrado por administradores;
@@ -49,4 +49,5 @@ npx prisma migrate dev | npx prisma studio
 npm i bcryptjs @types/bcryptjs
 npm i vitest vite-tsconfig-paths -d
 npm i -D @vitest/ui
+npm i dayjs 
 ```
