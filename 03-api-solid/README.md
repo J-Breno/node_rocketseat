@@ -9,7 +9,7 @@ GymPass style app.
 - [x] Deve ser possível obter o perfil de um usuário logado;
 - [x] Deve ser possível obter o número de check-ins realizados pelo usuário logado;
 - [x] Deve ser possível o usuário obter seu histório de check-ins;
-- [ ] Deve ser possível o usuário buscar academias próximas;
+- [x] Deve ser possível o usuário buscar academias próximas (até 10km);
 - [x] Deve ser possível o usuário buscar academias pelo nome;
 - [x] Deve ser possível o usuário realizar check-in em uma academia;
 - [ ] Deve ser possível validar o check-in de usuário;
@@ -31,9 +31,6 @@ GymPass style app.
 - [x] Todas listas de dados precisam estar paginadas com 20 itens por página;
 - [ ] O usuário deve ser identificado por um JWT (JSON Web Token)
 
-
-
-
 ## Instalações no projeto
 
 ```
@@ -45,9 +42,9 @@ npm i eslint @rocketseat/eslint-config -D
 npm i prisma -D | npx prisma init | npx prisma generate
 npm i @prisma/client
 docker run --name api-solid-pg -e POSTGRESQL_USERNAME=docker -e POSTGRESQL_PASSWORD=docker -e POSTGRESQL_DATABASE=apisolid -p 5432:5432 bitnami/postgresql
-npx prisma migrate dev | npx prisma studio  
+npx prisma migrate dev | npx prisma studio
 npm i bcryptjs @types/bcryptjs
 npm i vitest vite-tsconfig-paths -d
 npm i -D @vitest/ui
-npm i dayjs 
+npm i dayjs
 ```
