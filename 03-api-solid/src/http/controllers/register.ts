@@ -14,11 +14,13 @@ export async function register(request: FastifyRequest, reply: FastifyReply) {
   try {
     const registerUseCase = makeRegisterUseCase()
     await registerUseCase.execute({
-        email, name, password
+      email,
+      name,
+      password,
     })
   } catch (err) {
-    if(err instanceof UserAlreadyExistsError) {
-        return reply.status(409).send({message: err.message})
+    if (err instanceof UserAlreadyExistsError) {
+      return reply.status(409).send({ message: err.message })
     }
     throw err
   }
