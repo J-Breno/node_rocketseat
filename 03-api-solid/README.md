@@ -47,4 +47,5 @@ npm i bcryptjs @types/bcryptjs
 npm i vitest vite-tsconfig-paths -d
 npm i -D @vitest/ui
 npm i dayjs
+npm i @fastify/jwt  
 ```
