@@ -4,19 +4,17 @@ import type { AnswerRepository } from '../repositories/answers-repository.js'
 import type { Answer } from '../entities/answer.js'
 
 const fakeAnswerRepository: AnswerRepository = {
-    create: async (answer: Answer) => {
-        return
-    }
+  create: async (answer: Answer) => {},
 }
 
 test('create an answer', async () => {
-    const answerQuestion = new AnswerQuestionUseCase(fakeAnswerRepository)
+  const answerQuestion = new AnswerQuestionUseCase(fakeAnswerRepository)
 
-    const answer = await answerQuestion.execute({
-        instructorId: '1',
-        questionId: '1',
-        content: 'Nova resposta',
-    })
+  const answer = await answerQuestion.execute({
+    instructorId: '1',
+    questionId: '1',
+    content: 'Nova resposta',
+  })
 
-    expect(answer.content).toEqual('Nova resposta')
+  expect(answer.content).toEqual('Nova resposta')
 })
