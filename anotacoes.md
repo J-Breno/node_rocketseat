@@ -63,3 +63,6 @@ Design - converter problema do cliente em algo palpável
 
 
 
+Software deve ser desconectado de camadas externas
+código pode existir independente do seu contexto
+
