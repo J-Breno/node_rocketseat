@@ -50,4 +50,5 @@ npm i dayjs
 npm i @fastify/jwt  
 npm i supertest -D
 npm i @types/supertest -D
+ npm i @fastify/cookie 
 ```
