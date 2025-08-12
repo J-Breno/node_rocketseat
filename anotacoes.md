@@ -48,3 +48,18 @@ npm i -D @types/supertest
 executar: npx  vitest
 
 Teste não pode depender de outro teste
+
+## DDD (Domain-driven Design)
+
+Design dirigida à domínio
+
+Design - converter problema do cliente em algo palpável
+
+### Domínio
+
+- Domain Experts = Pessoas que entendem a funda a problemática do software 
+   - Conversa
+- Linguagem ubíqua = Linguagem universal que todas as pessoas que estão envolvidas na criação desse software conseguem conversar por igual
+
+
+
