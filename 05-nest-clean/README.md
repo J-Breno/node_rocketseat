@@ -96,6 +96,7 @@ Siga as instruções abaixo para configurar e executar o projeto em seu ambiente
    ```
 
 3. **Configure o ambiente:**
+
    - Renomeie o arquivo `.env.example` para `.env`.
    - Preencha as variáveis de ambiente no arquivo `.env` com as suas configurações (banco de dados, chaves de segurança, etc.).
 
@@ -152,5 +153,8 @@ Siga as instruções abaixo para configurar e executar o projeto em seu ambiente
 ```bash
    pnpm i @nestjs/passport @nestjs/jwt
    pnpm i @nestjs/config
-   
+   openssl genpkey -algorithm RSA -out private_key.pem -pkeyopt rsa_keygen_bits:2048
+   openssl rsa -pubout -in private_key.pem -out public_key.pem
+   base64  private_key.pem > private_key-base64.txt 
+   base64  public_key.pem > public_key-base64.txt
 ```
