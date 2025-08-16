@@ -157,4 +157,7 @@ Siga as instruções abaixo para configurar e executar o projeto em seu ambiente
    openssl rsa -pubout -in private_key.pem -out public_key.pem
    base64  private_key.pem > private_key-base64.txt 
    base64  public_key.pem > public_key-base64.txt
+   pnpm i passport-jwt
+   pnpm i @types/passport-jwt -D
+
 ```
