@@ -2,7 +2,6 @@ import {
     Body,
   Controller,
   Post,
-  Req,
   UseGuards,
 } from '@nestjs/common'
 import { CurrentUser } from 'src/auth/current-user-decorator'
