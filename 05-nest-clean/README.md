@@ -146,3 +146,11 @@ Siga as instruções abaixo para configurar e executar o projeto em seu ambiente
 
 <br />
 <br />
+
+#### Extras intalações
+
+```bash
+   pnpm i @nestjs/passport @nestjs/jwt
+   pnpm i @nestjs/config
+   
+```
