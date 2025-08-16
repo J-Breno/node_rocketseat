@@ -1,28 +1,39 @@
 import { expect, beforeEach } from 'vitest'
 import { CreateQuestionUseCase } from './create-question.js'
-import { InMemoryQuestionRepository } from 'test/repositories/in-memory-question-repository.js'
 import { UniqueEntityId } from '@/core/entities/unique-entity-id.js'
+import { InMemoryQuestionsRepository } from 'test/repositories/in-memory-question-repository.js'
+import { InMemoryQuestionAttachmentsRepository } from 'test/repositories/in-memory-question-attachments-repository.js'
 
-let inMemoryQuestionRepository: InMemoryQuestionRepository
+let inMemoryQuestionsRepository: InMemoryQuestionsRepository
+let inMemoryQuestionAttachmentsRepository: InMemoryQuestionAttachmentsRepository
 let sut: CreateQuestionUseCase
-describe('Create question', () => {
+
+describe('Create Question', () => {
   beforeEach(() => {
-    inMemoryQuestionRepository = new InMemoryQuestionRepository()
-    sut = new CreateQuestionUseCase(inMemoryQuestionRepository)
+    inMemoryQuestionAttachmentsRepository =
+      new InMemoryQuestionAttachmentsRepository()
+    inMemoryQuestionsRepository = new InMemoryQuestionsRepository(
+      inMemoryQuestionAttachmentsRepository,
+    )
+    sut = new CreateQuestionUseCase(inMemoryQuestionsRepository)
   })
 
-  it('should be able to create an answer', async () => {
+  it('should be able to create a question', async () => {
     const result = await sut.execute({
       authorId: '1',
-      title: 'Nova Pergunta',
+      title: 'Nova pergunta',
       content: 'Conteúdo da pergunta',
       attachmentsIds: ['1', '2'],
     })
 
     expect(result.isRight()).toBe(true)
-    expect(inMemoryQuestionRepository.items[0]).toEqual(result.value?.question)
-    expect(inMemoryQuestionRepository.items[0]?.attachments).toHaveLength(2)
-    expect(inMemoryQuestionRepository.items[0]?.attachments).toEqual([
+    expect(inMemoryQuestionsRepository.items[0]).toEqual(result.value?.question)
+    expect(
+      inMemoryQuestionsRepository.items[0]?.attachments.currentItems,
+    ).toHaveLength(2)
+    expect(
+      inMemoryQuestionsRepository.items[0]?.attachments.currentItems,
+    ).toEqual([
       expect.objectContaining({ attachmentId: new UniqueEntityId('1') }),
       expect.objectContaining({ attachmentId: new UniqueEntityId('2') }),
     ])

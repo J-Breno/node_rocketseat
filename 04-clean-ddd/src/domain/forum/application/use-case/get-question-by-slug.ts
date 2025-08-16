@@ -15,17 +15,19 @@ type GetQuestionBySlugUseCaseResponse = Either<
 >
 
 export class GetQuestionBySlugUseCase {
-  constructor(private questionRepository: QuestionRepository) {}
+  constructor(private questionsRepository: QuestionRepository) {}
 
   async execute({
     slug,
   }: GetQuestionBySlugUseCaseRequest): Promise<GetQuestionBySlugUseCaseResponse> {
-    const question = await this.questionRepository.findBySlug(slug)
+    const question = await this.questionsRepository.findBySlug(slug)
 
     if (!question) {
       return left(new ResourceNotFoundError())
     }
 
-    return right({ question })
+    return right({
+      question,
+    })
   }
 }

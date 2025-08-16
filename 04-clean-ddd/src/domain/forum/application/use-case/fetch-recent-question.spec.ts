@@ -1,24 +1,31 @@
 import { expect, beforeEach } from 'vitest'
-import { InMemoryQuestionRepository } from 'test/repositories/in-memory-question-repository.js'
 import { makeQuestion } from 'test/factories/make-question.js'
 import { FetchRecentQuestionsUseCase } from './fetch-recent-question.js'
+import { InMemoryQuestionsRepository } from 'test/repositories/in-memory-question-repository.js'
+import { InMemoryQuestionAttachmentsRepository } from 'test/repositories/in-memory-question-attachments-repository.js'
 
-let inMemoryQuestionRepository: InMemoryQuestionRepository
+let inMemoryQuestionAttachmentsRepository: InMemoryQuestionAttachmentsRepository
+let inMemoryQuestionsRepository: InMemoryQuestionsRepository
 let sut: FetchRecentQuestionsUseCase
+
 describe('Fetch Recent Questions', () => {
   beforeEach(() => {
-    inMemoryQuestionRepository = new InMemoryQuestionRepository()
-    sut = new FetchRecentQuestionsUseCase(inMemoryQuestionRepository)
+    inMemoryQuestionAttachmentsRepository =
+      new InMemoryQuestionAttachmentsRepository()
+    inMemoryQuestionsRepository = new InMemoryQuestionsRepository(
+      inMemoryQuestionAttachmentsRepository,
+    )
+    sut = new FetchRecentQuestionsUseCase(inMemoryQuestionsRepository)
   })
 
-  it('should be able to fetch  recent question', async () => {
-    await inMemoryQuestionRepository.create(
+  it('should be able to fetch recent questions', async () => {
+    await inMemoryQuestionsRepository.create(
       makeQuestion({ createdAt: new Date(2022, 0, 20) }),
     )
-    await inMemoryQuestionRepository.create(
+    await inMemoryQuestionsRepository.create(
       makeQuestion({ createdAt: new Date(2022, 0, 18) }),
     )
-    await inMemoryQuestionRepository.create(
+    await inMemoryQuestionsRepository.create(
       makeQuestion({ createdAt: new Date(2022, 0, 23) }),
     )
 
@@ -33,9 +40,9 @@ describe('Fetch Recent Questions', () => {
     ])
   })
 
-  it('should be able to fetch paginated recent question', async () => {
+  it('should be able to fetch paginated recent questions', async () => {
     for (let i = 1; i <= 22; i++) {
-      await inMemoryQuestionRepository.create(makeQuestion())
+      await inMemoryQuestionsRepository.create(makeQuestion())
     }
 
     const result = await sut.execute({

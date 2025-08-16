@@ -1,15 +1,22 @@
 import { expect, beforeEach } from 'vitest'
-import { InMemoryQuestionRepository } from 'test/repositories/in-memory-question-repository.js'
 import { GetQuestionBySlugUseCase } from './get-question-by-slug.js'
 import { makeQuestion } from 'test/factories/make-question.js'
 import { Slug } from '../../enterprise/entities/value-objects/slug.js'
+import { InMemoryQuestionsRepository } from 'test/repositories/in-memory-question-repository.js'
+import { InMemoryQuestionAttachmentsRepository } from 'test/repositories/in-memory-question-attachments-repository.js'
 
-let inMemoryQuestionRepository: InMemoryQuestionRepository
+let inMemoryQuestionAttachmentsRepository: InMemoryQuestionAttachmentsRepository
+let inMemoryQuestionsRepository: InMemoryQuestionsRepository
 let sut: GetQuestionBySlugUseCase
-describe('Get question By Slug', () => {
+
+describe('Get Question By Slug', () => {
   beforeEach(() => {
-    inMemoryQuestionRepository = new InMemoryQuestionRepository()
-    sut = new GetQuestionBySlugUseCase(inMemoryQuestionRepository)
+    inMemoryQuestionAttachmentsRepository =
+      new InMemoryQuestionAttachmentsRepository()
+    inMemoryQuestionsRepository = new InMemoryQuestionsRepository(
+      inMemoryQuestionAttachmentsRepository,
+    )
+    sut = new GetQuestionBySlugUseCase(inMemoryQuestionsRepository)
   })
 
   it('should be able to get a question by slug', async () => {
@@ -17,13 +24,16 @@ describe('Get question By Slug', () => {
       slug: Slug.create('example-question'),
     })
 
-    inMemoryQuestionRepository.create(newQuestion)
+    await inMemoryQuestionsRepository.create(newQuestion)
 
     const result = await sut.execute({
       slug: 'example-question',
     })
 
-    expect(result.value?.quesiton.id).toBeTruthy()
-    expect(result.value?.question.title).toEqual(newQuestion.title)
+    expect(result.value).toMatchObject({
+      question: expect.objectContaining({
+        title: newQuestion.title,
+      }),
+    })
   })
 })

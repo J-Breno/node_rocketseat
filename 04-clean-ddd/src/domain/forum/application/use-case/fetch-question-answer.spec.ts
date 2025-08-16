@@ -3,34 +3,41 @@ import { InMemoryAnswerRepository } from 'test/repositories/in-memory-answer-rep
 import { FetchQuestionAnswersUseCase } from './fetch-question-answer.js'
 import { UniqueEntityId } from '@/core/entities/unique-entity-id.js'
 import { makeAnswer } from 'test/factories/make-answer.js'
+import { InMemoryAnswerAttachmentsRepository } from 'test/repositories/in-memory-answer-attachment-repository.js'
 
-let inMemoryAnswerRepository: InMemoryAnswerRepository
+let inMemoryAnswerAttachmentsRepository: InMemoryAnswerAttachmentsRepository
+let inMemoryAnswersRepository: InMemoryAnswerRepository
 let sut: FetchQuestionAnswersUseCase
-describe('Fetch Questions Answers', () => {
+
+describe('Fetch Question Answers', () => {
   beforeEach(() => {
-    inMemoryAnswerRepository = new InMemoryAnswerRepository()
-    sut = new FetchQuestionAnswersUseCase(inMemoryAnswerRepository)
+    inMemoryAnswerAttachmentsRepository =
+      new InMemoryAnswerAttachmentsRepository()
+    inMemoryAnswersRepository = new InMemoryAnswerRepository(
+      inMemoryAnswerAttachmentsRepository,
+    )
+    sut = new FetchQuestionAnswersUseCase(inMemoryAnswersRepository)
   })
 
-  it('should be able to fetch question answer', async () => {
-    await inMemoryAnswerRepository.create(
+  it('should be able to fetch question answers', async () => {
+    await inMemoryAnswersRepository.create(
       makeAnswer({
-        questionId: new UniqueEntityId('quesiton-1'),
+        questionId: new UniqueEntityId('question-1'),
       }),
     )
-    await inMemoryAnswerRepository.create(
+    await inMemoryAnswersRepository.create(
       makeAnswer({
-        questionId: new UniqueEntityId('quesiton-1'),
+        questionId: new UniqueEntityId('question-1'),
       }),
     )
-    await inMemoryAnswerRepository.create(
+    await inMemoryAnswersRepository.create(
       makeAnswer({
-        questionId: new UniqueEntityId('quesiton-1'),
+        questionId: new UniqueEntityId('question-1'),
       }),
     )
 
     const result = await sut.execute({
-      questionId: 'quesiton-1',
+      questionId: 'question-1',
       page: 1,
     })
 
@@ -39,15 +46,15 @@ describe('Fetch Questions Answers', () => {
 
   it('should be able to fetch paginated question answers', async () => {
     for (let i = 1; i <= 22; i++) {
-      await inMemoryAnswerRepository.create(
+      await inMemoryAnswersRepository.create(
         makeAnswer({
-          questionId: new UniqueEntityId('quesiton-1'),
+          questionId: new UniqueEntityId('question-1'),
         }),
       )
     }
 
     const result = await sut.execute({
-      questionId: 'quesiton-1',
+      questionId: 'question-1',
       page: 2,
     })
 
