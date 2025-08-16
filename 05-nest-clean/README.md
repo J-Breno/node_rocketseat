@@ -159,5 +159,6 @@ Siga as instruções abaixo para configurar e executar o projeto em seu ambiente
    base64  public_key.pem > public_key-base64.txt
    pnpm i passport-jwt
    pnpm i @types/passport-jwt -D
+   pnpm i vitest unplugin-swc @swc/core @vitest/coverage-v8 -D
 
 ```

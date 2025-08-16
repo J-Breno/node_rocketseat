@@ -1,14 +1,9 @@
-import {
-    Body,
-  Controller,
-  Post,
-  UseGuards,
-} from '@nestjs/common'
-import { CurrentUser } from 'src/auth/current-user-decorator'
-import { JwtAuthGuard } from 'src/auth/jwt-auth.guard'
-import type { UserPayload } from 'src/auth/jwt.strategy'
-import { ZodValidationPipe } from 'src/pipes/zod-validation.pipe'
-import { PrismaService } from 'src/prisma/prisma.service'
+import { Body, Controller, Post, UseGuards } from '@nestjs/common'
+import { CurrentUser } from 'src/auth/current-user-decorator.js'
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard.js'
+import type { UserPayload } from 'src/auth/jwt.strategy.js'
+import { ZodValidationPipe } from 'src/pipes/zod-validation.pipe.js'
+import { PrismaService } from 'src/prisma/prisma.service.js'
 import z from 'zod'
 
 const createQuestionBodySchema = z.object({
@@ -23,31 +18,34 @@ type CreateQuestionBodySchema = z.infer<typeof createQuestionBodySchema>
 @Controller('/questions')
 @UseGuards(JwtAuthGuard)
 export class CreateQuestionController {
-  constructor(
-    private prisma: PrismaService,
-  ) {}
+  constructor(private prisma: PrismaService) {}
 
   @Post()
   async handle(
     @Body(bodyValidationPipe) body: CreateQuestionBodySchema,
-    @CurrentUser() user: UserPayload) {
-    const {title, content} = body
+    @CurrentUser() user: UserPayload,
+  ) {
+    const { title, content } = body
     const { sub: userId } = user
 
     const slug = this.convertToSlug(title)
 
     await this.prisma.question.create({
-        data: {
-            authorId: userId,
-            title,
-            content,
-            slug,
-        }
+      data: {
+        authorId: userId,
+        title,
+        content,
+        slug,
+      },
     })
   }
 
   private convertToSlug(title: string): string {
-    return title.toLowerCase().normalize("NFD").replace(/[\u036f]/g, "")
-    .replace(/[^\w\s-]/g, "").replace(/\s+/g, "-")
+    return title
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u036f]/g, '')
+      .replace(/[^\w\s-]/g, '')
+      .replace(/\s+/g, '-')
   }
 }
