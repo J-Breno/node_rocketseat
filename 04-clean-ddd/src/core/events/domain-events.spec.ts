@@ -2,6 +2,7 @@ import { AggregateRoot } from '../entities/aggregate-root.js'
 import type { UniqueEntityId } from '../entities/unique-entity-id.js'
 import type { DomainEvent } from './domain-event.js'
 import { DomainEvents } from './domain-events.js'
+import { vi } from 'vitest'
 
 class CustomAggregateCreated implements DomainEvent {
   public ocurredAt: Date
