@@ -1,5 +1,5 @@
-import { AppModule } from '@/app.module.js'
-import { PrismaService } from '@/prisma/prisma.service.js'
+import { AppModule } from '@/infra/app.module.js'
+import { PrismaService } from '@/infra/prisma/prisma.service.js'
 import { INestApplication } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
 import { Test } from '@nestjs/testing'
