@@ -1,7 +1,7 @@
 import { UniqueEntityId } from '@/core/entities/unique-entity-id.js'
 import { InMemoryNotificationsRepository } from 'test/repositories/in-memory-notifications-repository.js'
 import { ReadNotificationUseCase } from './read-notification.js'
-import { NotAllowedError } from '@/domain/forum/application/use-case/errors/not-allowed-error.js'
+import { NotAllowedError } from '@/core/errors/errors/not-allowed-error.js'
 import { makeNotification } from 'test/factories/make-notification.js'
 
 let inMemoryNotificationsRepository: InMemoryNotificationsRepository
