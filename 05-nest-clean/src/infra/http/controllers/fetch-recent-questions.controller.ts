@@ -23,9 +23,9 @@ export class FetchRecentQuestionsController {
 
   @Get()
   async handle(@Query('page', queryValidationPipe) page: PageQueryParamSchema) {
-    const result = await this.fetchRecentQuestions.execute({page})
+    const result = await this.fetchRecentQuestions.execute({ page })
 
-    if(result.isLeft()) {
+    if (result.isLeft()) {
       throw new Error()
     }
 

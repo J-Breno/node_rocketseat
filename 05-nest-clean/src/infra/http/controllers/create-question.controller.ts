@@ -30,11 +30,10 @@ export class CreateQuestionController {
     const { sub: userId } = user
 
     await this.createQuestion.execute({
-      title, 
+      title,
       content,
       authorId: userId,
       attachmentsIds: [],
     })
-
   }
 }

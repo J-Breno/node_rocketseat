@@ -1,14 +1,13 @@
 import { Entity } from '@/core/entities/entity.js'
 import type { UniqueEntityId } from '@/core/entities/unique-entity-id.js'
 
-interface StudentProps {
+export interface StudentProps {
   name: string
   email: string
   password: string
 }
 
 export class Student extends Entity<StudentProps> {
-
   get name() {
     return this.props.name
   }

@@ -7,7 +7,7 @@ import { WrongCredentialsError } from './errors/wrong-creadentials-error.js'
 
 interface AuthenticateStudentUseCaseRequest {
   email: string
-password: string
+  password: string
 }
 
 type AuthenticateStudentUseCaseResponse = Either<
@@ -19,25 +19,34 @@ type AuthenticateStudentUseCaseResponse = Either<
 
 @Injectable()
 export class AuthenticateStudentUseCase {
-  constructor(private studentsRepository: StudentsRepository, private hashCompare: HashComparer, private encrypter: Encrypter) {}
+  constructor(
+    private studentsRepository: StudentsRepository,
+    private hashCompare: HashComparer,
+    private encrypter: Encrypter,
+  ) {}
 
   async execute({
-    password, email,
+    password,
+    email,
   }: AuthenticateStudentUseCaseRequest): Promise<AuthenticateStudentUseCaseResponse> {
     const student = await this.studentsRepository.findByEmail(email)
-    
-        if (!student) {
-          return left(new WrongCredentialsError())
-        }
-    
-        const isPasswordValid = await this.hashCompare.compare(password, student.password)
-        
-            if (!isPasswordValid) {
-                return left(new WrongCredentialsError())
 
-            }
-        
-            const accessToken = await this.encrypter.encrypt({ sub: student.id.toString() })
-        return right({accessToken})
+    if (!student) {
+      return left(new WrongCredentialsError())
+    }
+
+    const isPasswordValid = await this.hashCompare.compare(
+      password,
+      student.password,
+    )
+
+    if (!isPasswordValid) {
+      return left(new WrongCredentialsError())
+    }
+
+    const accessToken = await this.encrypter.encrypt({
+      sub: student.id.toString(),
+    })
+    return right({ accessToken })
   }
 }

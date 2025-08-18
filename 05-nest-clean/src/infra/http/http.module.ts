@@ -15,6 +15,6 @@ import { FetchRecentQuestionsUseCase } from '@/domain/forum/application/use-case
     CreateQuestionController,
     FetchRecentQuestionsController,
   ],
-  providers: [CreateQuestionUseCase, FetchRecentQuestionsUseCase]
+  providers: [CreateQuestionUseCase, FetchRecentQuestionsUseCase],
 })
 export class HttpModule {}

@@ -8,7 +8,7 @@ import { StudentAlreadyExistsError } from './errors/student-already-exists-error
 interface RegisterStudentUseCaseRequest {
   name: string
   email: string
-password: string
+  password: string
 }
 
 type RegisterStudentUseCaseResponse = Either<
@@ -20,27 +20,33 @@ type RegisterStudentUseCaseResponse = Either<
 
 @Injectable()
 export class RegisterStudentUseCase {
-  constructor(private studentsRepository: StudentsRepository, private hashGenerator: HashGenerator) {}
+  constructor(
+    private studentsRepository: StudentsRepository,
+    private hashGenerator: HashGenerator,
+  ) {}
 
   async execute({
-    name,password, email,
+    name,
+    password,
+    email,
   }: RegisterStudentUseCaseRequest): Promise<RegisterStudentUseCaseResponse> {
-    const studentWithSameEmail = await this.studentsRepository.findByEmail(email)
-    
-        if (studentWithSameEmail) {
-          return left(new StudentAlreadyExistsError(email))
-        }
-    
-        const hashedPassword = await this.hashGenerator.hash(password)
-    
-        const student = Student.create(
-            {
-                email, name, password
-            }
-        )
+    const studentWithSameEmail =
+      await this.studentsRepository.findByEmail(email)
 
-        await this.studentsRepository.create(student)
-    
+    if (studentWithSameEmail) {
+      return left(new StudentAlreadyExistsError(email))
+    }
+
+    const hashedPassword = await this.hashGenerator.hash(password)
+
+    const student = Student.create({
+      email,
+      name,
+      password: hashedPassword,
+    })
+
+    await this.studentsRepository.create(student)
+
     return right({ student })
   }
 }
