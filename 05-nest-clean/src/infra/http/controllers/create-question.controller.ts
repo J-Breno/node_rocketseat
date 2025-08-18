@@ -3,9 +3,9 @@ import { Body, Controller, Post, UseGuards } from '@nestjs/common'
 import type { UserPayload } from '../../auth/jwt.strategy.js'
 import z from 'zod'
 import { ZodValidationPipe } from '../pipes/zod-validation.pipe.js'
-import { PrismaService } from '../../database/prisma/prisma.service.js'
 import { CurrentUser } from '../../auth/current-user-decorator.js'
 import { JwtAuthGuard } from '../../auth/jwt-auth.guard.js'
+import { CreateQuestionUseCase } from '@/domain/forum/application/use-case/create-question.js'
 
 const createQuestionBodySchema = z.object({
   title: z.string(),
@@ -19,7 +19,7 @@ type CreateQuestionBodySchema = z.infer<typeof createQuestionBodySchema>
 @Controller('/questions')
 @UseGuards(JwtAuthGuard)
 export class CreateQuestionController {
-  constructor(private prisma: PrismaService) {}
+  constructor(private createQuestion: CreateQuestionUseCase) {}
 
   @Post()
   async handle(
@@ -29,24 +29,12 @@ export class CreateQuestionController {
     const { title, content } = body
     const { sub: userId } = user
 
-    const slug = this.convertToSlug(title)
-
-    await this.prisma.question.create({
-      data: {
-        authorId: userId,
-        title,
-        content,
-        slug,
-      },
+    await this.createQuestion.execute({
+      title, 
+      content,
+      authorId: userId,
+      attachmentsIds: [],
     })
-  }
 
-  private convertToSlug(title: string): string {
-    return title
-      .toLowerCase()
-      .normalize('NFD')
-      .replace(/[\u036f]/g, '')
-      .replace(/[^\w\s-]/g, '')
-      .replace(/\s+/g, '-')
   }
 }
