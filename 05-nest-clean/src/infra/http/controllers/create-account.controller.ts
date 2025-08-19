@@ -33,10 +33,11 @@ export class CreateAccountController {
     const { name, email, password } = body
 
     const result = await this.registerStudent.execute({
-      name, email, password
+      name,
+      email,
+      password,
     })
 
-    
     if (result.isLeft()) {
       const error = result.value
 

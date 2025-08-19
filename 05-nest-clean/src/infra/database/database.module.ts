@@ -20,9 +20,9 @@ import { PrismaStudentsRepository } from './prisma/repositories/prisma-students-
       useClass: PrismaQuestionRepository,
     },
     {
-        provide: StudentsRepository,
-        useClass: PrismaStudentsRepository,
-      },
+      provide: StudentsRepository,
+      useClass: PrismaStudentsRepository,
+    },
     PrismaAnswerAttachmentsRepository,
     PrismaAnswerCommentsRepository,
     PrismaAnswerRepository,

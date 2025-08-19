@@ -1,10 +1,7 @@
-import { expect, beforeEach } from 'vitest'
-import { UniqueEntityId } from '@/core/entities/unique-entity-id.js'
-import { InMemoryQuestionsRepository } from 'test/repositories/in-memory-question-repository.js'
-import { InMemoryQuestionAttachmentsRepository } from 'test/repositories/in-memory-question-attachments-repository.js'
-import { RegisterStudentUseCase } from './register-student.js'
-import { FakeHasher } from 'test/cryptography/fake-hasher.js'
-import { InMemoryStudentsRepository } from 'test/repositories/in-memory-student-repository.js'
+import { FakeHasher } from "../../../../../test/cryptography/fake-hasher"
+import { InMemoryStudentsRepository } from "../../../../../test/repositories/in-memory-student-repository"
+import { RegisterStudentUseCase } from "./register-student"
+
 
 let inMemoryStudentsRepository: InMemoryStudentsRepository
 let fakeHasher: FakeHasher

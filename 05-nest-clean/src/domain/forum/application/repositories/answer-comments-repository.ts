@@ -1,4 +1,4 @@
-import type { PaginationParams } from '@/core/repositories/pagination-params.js'
+import { PaginationParams } from '@/core/repositories/pagination-params.js'
 import type { AnswerComment } from '../../enterprise/entities/answer-comments.js'
 
 export interface AnswerCommentRepository {

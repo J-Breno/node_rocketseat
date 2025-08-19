@@ -2,8 +2,9 @@ import { Module } from '@nestjs/common'
 import { PrismaService } from './database/prisma/prisma.service.js'
 import { ConfigModule } from '@nestjs/config'
 import { AuthModule } from './auth/auth.module.js'
-import { envSchema } from './env.js'
 import { HttpModule } from './http/http.module.js'
+import { EnvModule } from './env/env.module.js'
+import { envSchema } from './env/env.js'
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { HttpModule } from './http/http.module.js'
     }),
     AuthModule,
     HttpModule,
+    EnvModule,
   ],
 
   providers: [PrismaService],
